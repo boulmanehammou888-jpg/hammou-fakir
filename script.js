@@ -128,6 +128,17 @@ function setupEventListeners() {
         btnBackFromLive.addEventListener('click', () => navigateToPage('home'));
     }
 
+    // Sécurité Routière
+    const btnSecurite = document.getElementById('btnSecurite');
+    if (btnSecurite) {
+        btnSecurite.addEventListener('click', () => navigateToPage('securite'));
+    }
+
+    const btnBackFromSecurite = document.getElementById('btnBackFromSecurite');
+    if (btnBackFromSecurite) {
+        btnBackFromSecurite.addEventListener('click', () => navigateToPage('home'));
+    }
+
     // Filtres
     document.querySelectorAll('.btn-filter').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -290,7 +301,7 @@ function navigateToPage(pageName) {
 
     // Afficher ou masquer le header
     const header = document.getElementById('header');
-    if (pageName === 'setup' || pageName === 'live') {
+    if (pageName === 'setup' || pageName === 'live' || pageName === 'securite') {
         if (header) header.style.display = 'none';
     } else {
         if (header) header.style.display = 'block';
@@ -303,7 +314,7 @@ function navigateToPage(pageName) {
     }
 
     // Activer le bouton correspondant
-    if (pageName !== 'setup' && pageName !== 'live') {
+    if (pageName !== 'setup' && pageName !== 'live' && pageName !== 'securite') {
         const activeBtn = document.querySelector(`.nav-btn[data-page="${pageName}"]`);
         if (activeBtn) {
             activeBtn.classList.add('active');
