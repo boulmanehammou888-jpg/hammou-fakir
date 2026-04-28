@@ -1,4 +1,1 @@
-```
-# No build artifacts, dependencies, or temporary files detected in changes
-# Only source files (HTML, JS, CSS) present
-```
+Nothing needs to be added to .gitignore since only source files (.js and .css) were modified and no build artifacts, dependencies, or temporary files were present in the changes.
