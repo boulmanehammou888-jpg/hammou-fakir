@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EASYPARK - Gestion de Parking Intelligente</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <!-- Audio musique de fond -->
+    <audio id="backgroundMusic" loop>
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBjGJ0fPTgjMGHm7A7+OZSA0PWqvn77BdGAg+ltryy3kpBSl+zfDakEAKFVy16+qnVRQLR5/i8r1sIQYyidDz1IIzBh5vwO/jmEgND1mr5O+wXRgIPZXa8st5KQUpfs3w2pBACxVctOvrp1UUC0ef4vK9bCEGMYnQ89SCMwYebsHv45hIDQ9Zq+Tvrl0YCD2U2fLLeSgGKX/N8NqPQAwWXLPr66dVFApHn+LyvWwhBjKJ0PPUgjMGHW7B7+OZRwwPWarn769eGAg9lNryy3koByh/zfDaj0AMFlyy6+unVhQKRp/i8r5sIQYyidDz1IIzBh1uwfDjmUcMD1mp5++vXRgIPZPa88p3KAcof83w2o9ADRVcs+vrp1YUCkef4vK+azwHM4nQ89OCMgYdbsHw45lGDA9Yqefvr10XCD2U2vLKdigHKH/N8NqPQA0VW7Lr66dWFApHn+LyvmwiBjOJ0fPTgjIGHW/A8OOZSA0PWKjn76+VXRcIPZTa8sp2KAcof8zx2o9ADRVbsuvqp1cUCkSf4vK9azwHMorQ89SCMgYdbsDw45lIDQ9YqOjvr2AXBz2U2fLKdykFKH/M8NqPQAwWW7Lq66dXEwlEn+Xyvms+CDGK0PPTgTIFHm/B8OOYRw0OWKno77BdGAg9lNnwynYpByh/zPHajT8MFlux6+qmVxMJRZ/k8r1qPAcxi9Dz04EyBR1vwO/jmEgND1io6e+wXRgIPZPa8Mp2KQUof83w2o9ADRZbs+rqp1cTC0We5PK9ajsHMYvQ89OBMgUdb8Dv4phIDQ9ZqOnusFwYBz2U2fDKdykFKIDN8NqPQAwWW7Pq6qdXEwtFnuTyvWo8BzGM0PPTgDIGHW/A8OOZSQ0PWKro77BbFwc9lNrwynUpBCiBzfDakEAMFVux6+qnVxILRp/l8r1qOwcxjNDz04AyBh1vwe/jmEgOD1mp6e+vXRgIPZPa8Mp3KQQogc3w2pBADBVbs+rqp1cTCkSf5fK9ajwHMYzQ89OAMgYdb8Hv4phIDg9Zqenvr10YBz2T2vDKdykEKIHN8NqQQAwVW7Pq6qdWEwpEn+Pzu2o8BzKL0PPTgDIFHm7B7+OXSAwOWKnp769dGAc9k9rwynYpBSiBzfHajz8MFluz6uqnVhIKRZ/j8r1qOwcxi9Hz04AyBh1uwO/jl0gMDlio6e+vXRcHPZPZ8Mp3KQQpgc3w2o9ADRZctOvqp1YTC0We4/K8ajsHMovR89OAMQUdbr/v4phIDA9ZqOjvr10YCD2T2vDKdygEKIHN8dmPPwwWXLPr6qdVEwtFnuPyu2o6BzKL0fLTgDEFHm6/7+KYSAwOWano769eGAc9lNrwyn" type="audio/wav">
+    </audio>
+
+    <!-- PAGE 0: CONFIGURATION INITIALE -->
+    <div id="pageSetup" class="page setup-page active">
+        <div class="setup-container">
+            <div class="setup-card">
+                <div class="setup-header">
+                    <div class="setup-icon">🅿️</div>
+                    <h1>Configuration Initiale - EASYPARK</h1>
+                    <p>Configurez votre parking pour la première fois</p>
+                </div>
+                
+                <div class="setup-content">
+                    <!-- Étape 1: Nombre de secteurs -->
+                    <div id="setupStep1" class="setup-step active">
+                        <label for="numberOfSectors" class="setup-label">
+                            Combien de secteurs y a-t-il dans votre parking ?
+                        </label>
+                        <input type="number" id="numberOfSectors" class="setup-input" 
+                               min="1" max="10" value="2">
+                        <button class="btn btn-primary btn-large" id="btnNextStep">
+                            Suivant
+                        </button>
+                    </div>
+
+                    <!-- Étape 2: Configuration des secteurs -->
+                    <div id="setupStep2" class="setup-step">
+                        <div class="step-header">
+                            <h3>Configuration des secteurs</h3>
+                            <button class="btn btn-outline" id="btnPrevStep">Retour</button>
+                        </div>
+                        <div id="sectorsConfig" class="sectors-config"></div>
+                        <button class="btn btn-primary btn-large" id="btnValidateSetup">
+                            ✅ Valider et Démarrer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header (caché sur page Setup et Live) -->
+    <header id="header" style="display: none;">
+        <div class="container header-content">
+            <div class="header-left">
+                <h1 class="logo" id="logoHome">🅿️ EASYPARK</h1>
+                <nav class="nav-menu">
+                    <button class="nav-btn active" data-page="home">🏠 Accueil</button>
+                    <button class="nav-btn" data-page="tarifs">💰 Tarifs</button>
+                    <button class="nav-btn" data-page="historique">📋 Historique</button>
+                    <button class="nav-btn" data-page="statistiques">📊 Statistiques</button>
+                </nav>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-danger btn-live" id="btnLive">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    Vidéo Live
+                </button>
+                <button class="btn btn-icon" id="btnMusic" title="Musique">
+                    <svg class="icon" id="iconMusic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                </button>
+                <button class="btn btn-icon" id="btnTheme" title="Thème">
+                    <svg class="icon" id="iconTheme" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE 1: ACCUEIL -->
+    <main id="pageHome" class="page">
+        <div class="container">
+            <!-- Statistiques -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-label">Total</div>
+                    <div class="stat-value" id="statTotal">0</div>
+                </div>
+                <div class="stat-card stat-success">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-label">Libres</div>
+                    <div class="stat-value" id="statLibres">0</div>
+                </div>
+                <div class="stat-card stat-danger">
+                    <div class="stat-icon">🚗</div>
+                    <div class="stat-label">Occupées</div>
+                    <div class="stat-value" id="statOccupees">0</div>
+                </div>
+                <div class="stat-card stat-vip">
+                    <div class="stat-icon">👑</div>
+                    <div class="stat-label">VIP</div>
+                    <div class="stat-value" id="statVip">0</div>
+                </div>
+            </div>
+
+            <!-- Filtres -->
+            <div class="filters">
+                <button class="btn btn-filter active" data-filter="toutes">Toutes</button>
+                <button class="btn btn-filter btn-success" data-filter="libres">Libres</button>
+                <button class="btn btn-filter btn-danger" data-filter="occupees">Occupées</button>
+                <button class="btn btn-filter btn-vip" data-filter="vip">VIP</button>
+            </div>
+
+            <!-- Secteurs -->
+            <div id="sectorsContainer"></div>
+        </div>
+    </main>
+
+    <!-- PAGE 2: TARIFS -->
+    <main id="pageTarifs" class="page">
+        <div class="container">
+            <div class="page-header">
+                <h1>💰 Configuration des Tarifs</h1>
+                <p class="page-subtitle">Définissez les prix de stationnement</p>
+            </div>
+
+            <div class="card">
+                <h2>Tarifs de base</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="tarifHoraire">Tarif horaire (€)</label>
+                        <input type="number" id="tarifHoraire" step="0.1" min="0" value="2.5">
+                    </div>
+                    <div class="form-group">
+                        <label for="tarifMinute">Tarif à la minute (€)</label>
+                        <input type="number" id="tarifMinute" step="0.01" min="0" value="0.05">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Forfaits</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="forfaitNuit">Forfait nuit (20h-8h) - €</label>
+                        <input type="number" id="forfaitNuit" step="0.1" min="0" value="8">
+                    </div>
+                    <div class="form-group">
+                        <label for="forfaitJournee">Forfait journée (8h-20h) - €</label>
+                        <input type="number" id="forfaitJournee" step="0.1" min="0" value="15">
+                    </div>
+                    <div class="form-group">
+                        <label for="forfaitWeekend">Forfait week-end (48h) - €</label>
+                        <input type="number" id="forfaitWeekend" step="0.1" min="0" value="25">
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-save" id="btnSaveTarifs">💾 Sauvegarder les tarifs</button>
+        </div>
+    </main>
+
+    <!-- PAGE 3: HISTORIQUE -->
+    <main id="pageHistorique" class="page">
+        <div class="container">
+            <div class="page-header">
+                <h1>📋 Historique des Transactions</h1>
+                <p class="page-subtitle">Toutes les entrées et sorties enregistrées</p>
+            </div>
+
+            <div class="card">
+                <div class="filters-row">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="searchPlate">🔍 Rechercher par plaque</label>
+                            <input type="text" id="searchPlate" placeholder="AB-123-CD">
+                        </div>
+                        <div class="form-group">
+                            <label for="dateDebut">📅 Date de début</label>
+                            <input type="date" id="dateDebut">
+                        </div>
+                        <div class="form-group">
+                            <label for="dateFin">📅 Date de fin</label>
+                            <input type="date" id="dateFin">
+                        </div>
+                    </div>
+                    <div class="export-buttons">
+                        <button class="btn btn-primary" id="btnExportCSV">📄 Export CSV</button>
+                        <button class="btn btn-primary" id="btnExportPDF">📑 Export PDF</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="table-wrapper">
+                    <table class="table" id="historyTable">
+                        <thead>
+                            <tr>
+                                <th>Plaque</th>
+                                <th>Secteur</th>
+                                <th>Place</th>
+                                <th>Entrée</th>
+                                <th>Sortie</th>
+                                <th>Durée</th>
+                                <th>Type</th>
+                                <th>Prix</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <tr>
+                                <td colspan="8" class="text-center">Aucun enregistrement</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- PAGE 4: STATISTIQUES -->
+    <main id="pageStatistiques" class="page">
+        <div class="container">
+            <div class="page-header">
+                <h1>📊 Statistiques et Analyses</h1>
+                <p class="page-subtitle">Tableau de bord et analyses en temps réel</p>
+            </div>
+
+            <div class="stats-grid stats-large">
+                <div class="stat-card">
+                    <div class="stat-label">📈 Taux d'occupation</div>
+                    <div class="stat-value" id="tauxOccupation">0%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressOccupation" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">💰 Chiffre d'affaires</div>
+                    <div class="stat-value" id="chiffreAffaires">0.00 €</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">🚗 Entrées / Sorties</div>
+                    <div class="stat-value" id="entreeSortie">0 / 0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">⏱️ Durée moyenne</div>
+                    <div class="stat-value" id="dureeMoyenne">0h 00m</div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="card">
+                    <h2>📊 Occupation par secteur</h2>
+                    <canvas id="chartSectors" width="400" height="250"></canvas>
+                </div>
+
+                <div class="card">
+                    <h2>📈 Revenus par jour (7 derniers jours)</h2>
+                    <canvas id="chartRevenue" width="400" height="250"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🔥 Heures de pointe</h2>
+                <div class="heures-pointe" id="heuresPointe">
+                    <div class="heure-badge">⏰ 08h-10h - 85%</div>
+                    <div class="heure-badge">⏰ 12h-14h - 92%</div>
+                    <div class="heure-badge">⏰ 18h-20h - 88%</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- PAGE 5: VIDÉO LIVE -->
+    <div id="pageLive" class="page live-page">
+        <div class="live-header">
+            <div class="live-header-left">
+                <button class="btn btn-outline btn-back" id="btnBackFromLive">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </button>
+                <h1 class="live-title">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    Vidéo Live
+                </h1>
+            </div>
+            <div class="live-indicator">
+                <span class="live-dot"></span>
+                EN DIRECT
+            </div>
+        </div>
+        
+        <div class="live-content">
+            <div class="live-feed-main">
+                <div class="video-placeholder">
+                    <svg class="icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    <p class="video-title">Flux caméra en attente</p>
+                    <p class="video-subtitle">La caméra sera connectée en temps réel</p>
+                    <p class="video-note">(Dans la version déployée, le flux vidéo sera affiché ici)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="live-footer">
+            <p>Cette page affiche le flux de la caméra de surveillance du parking en temps réel</p>
+        </div>
+    </div>
+
+    <!-- Menu contextuel -->
+    <div id="contextMenu" class="context-menu">
+        <button class="context-item" data-action="libre">✓ Rendre libre</button>
+        <button class="context-item" data-action="occupee">✗ Rendre occupée</button>
+        <hr>
+        <button class="context-item" data-action="modifier-heure">⏰ Modifier l'heure</button>
+        <button class="context-item" data-action="modifier-plaque">🔢 Modifier la plaque</button>
+        <hr>
+        <button class="context-item" data-action="assigner-vip">👑 Assigner VIP</button>
+        <button class="context-item" data-action="retirer-vip">❌ Retirer VIP</button>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
