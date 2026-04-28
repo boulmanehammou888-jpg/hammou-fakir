@@ -67,6 +67,14 @@
                 </nav>
             </div>
             <div class="header-right">
+                <button class="btn btn-info btn-securite" id="btnSecurite">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                        <line x1="12" y1="2" x2="12" y2="5"></line>
+                    </svg>
+                    Sécurité Routière
+                </button>
                 <button class="btn btn-danger btn-live" id="btnLive">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
@@ -331,6 +339,100 @@
 
         <div class="live-footer">
             <p>Cette page affiche le flux de la caméra de surveillance du parking en temps réel</p>
+        </div>
+    </div>
+
+    <!-- PAGE 6: SÉCURITÉ ROUTIÈRE -->
+    <div id="pageSecurite" class="page securite-page">
+        <div class="live-header">
+            <div class="live-header-left">
+                <button class="btn btn-outline btn-back" id="btnBackFromSecurite">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </button>
+                <h1 class="live-title">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                        <line x1="12" y1="2" x2="12" y2="5"></line>
+                    </svg>
+                    Sécurité Routière
+                </h1>
+            </div>
+            <div class="live-indicator securite-indicator">
+                <span class="live-dot"></span>
+                ACTIF
+            </div>
+        </div>
+        
+        <div class="live-content">
+            <div class="securite-grid">
+                <div class="securite-card">
+                    <div class="securite-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <h3>Vitesse Limitée</h3>
+                    <p>Respectez les limitations de vitesse dans le parking</p>
+                    <div class="securite-stat">5 km/h max</div>
+                </div>
+                
+                <div class="securite-card">
+                    <div class="securite-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                    </div>
+                    <h3>Alertes Actives</h3>
+                    <p>Système de détection des comportements dangereux</p>
+                    <div class="securite-stat securite-ok">0 alerte(s)</div>
+                </div>
+                
+                <div class="securite-card">
+                    <div class="securite-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <h3>Accès Sécurisé</h3>
+                    <p>Contrôle d'accès et surveillance 24/7</p>
+                    <div class="securite-stat securite-ok">Actif</div>
+                </div>
+                
+                <div class="securite-card">
+                    <div class="securite-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3>Zones de Vigilance</h3>
+                    <p>Attention aux piétons dans les zones marquées</p>
+                    <div class="securite-stat">3 zones</div>
+                </div>
+            </div>
+            
+            <div class="securite-info">
+                <h2>🛡️ Consignes de Sécurité</h2>
+                <ul class="securite-list">
+                    <li>⚠️ Roulez lentement (5 km/h maximum)</li>
+                    <li>🚶‍♂️ Cédez toujours le passage aux piétons</li>
+                    <li>💡 Utilisez vos feux de position dans les zones sombres</li>
+                    <li>🅿️ Respectez les places attribuées</li>
+                    <li>🔒 Verrouillez votre véhicule après stationnement</li>
+                    <li>📞 En cas d'urgence, contactez la sécurité au 01 23 45 67 89</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="live-footer">
+            <p>Cette page affiche les informations de sécurité routière et les consignes à respecter dans le parking</p>
         </div>
     </div>
 
